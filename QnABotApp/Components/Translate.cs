@@ -30,7 +30,9 @@ namespace QnABotApp.Components
 
             // Configure translation
             translationConfig = SpeechTranslationConfig.FromSubscription(cogSvcKey, cogSvcRegion);
-            var autoDetectSpeech = AutoDetectSourceLanguageConfig.FromLanguages(new string[] { "en-US", "sv-SE" });
+
+            //This line of code let the program know what languages to listen to
+            var autoDetectSpeech = AutoDetectSourceLanguageConfig.FromLanguages(new string[] { "en-US", "sv-SE"});
             translationConfig.SpeechRecognitionLanguage = "sv-SE";
             translationConfig.AddTargetLanguage("en");
 

@@ -23,7 +23,8 @@ namespace QnABotApp
                 string cogSvcKey = configuration["CognitiveServiceKey"];
                 string cogSvcRegion = configuration["CognitiveServiceRegion"];
 
-                // Konfigurera tal-tjänst
+                // Configures the speech services
+
                 speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
                 //Some intro
                 await Intro.Tell();
@@ -41,6 +42,7 @@ namespace QnABotApp
                 while (true)
                 {
                     Console.WriteLine();
+                    //runs translate to english method
                     string question = await Translate.TranslateToEnglish();
 
                     try
@@ -55,11 +57,11 @@ namespace QnABotApp
                             // Print the response
                             Console.WriteLine(responseText);
 
-                            // Konfigurera talsyntes
+                            // Configures the speech of the program
                             speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural";
                             using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
 
-                            // Syntetisera talad utdata
+                            // reads and the program "says" the repons from TranslateToEnglish method
                             SpeechSynthesisResult speak = await speechSynthesizer.SpeakTextAsync(responseText);
                             if (speak.Reason != ResultReason.SynthesizingAudioCompleted)
                             {
@@ -74,6 +76,7 @@ namespace QnABotApp
                     {
                         Console.WriteLine(ex.Message);
                     }
+
                     if (question.ToLower() == "goodbye.")
                     {
                         break;
